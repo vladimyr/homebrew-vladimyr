@@ -15,10 +15,10 @@ cask 'hopper-disassembler' do
 
   zap trash: [
                '~/Library/Application Support/Hopper',
-               "~/Library/Application Support/Hopper Disassembler v#{version.major}",	
+               "~/Library/Application Support/Hopper Disassembler v#{version.major}",
                '~/Library/Caches/com.apple.helpd/Generated/com.cryptic-apps.hopper-web-*.help*',
-               "~/Library/Caches/com.cryptic-apps.hopper-web-#{version.major}",	
-               "~/Library/Preferences/com.cryptic-apps.hopper-web-#{version.major}.plist",	
+               "~/Library/Caches/com.cryptic-apps.hopper-web-#{version.major}",
+               "~/Library/Preferences/com.cryptic-apps.hopper-web-#{version.major}.plist",
                "~/Library/Saved Application State/com.cryptic-apps.hopper-web-#{version.major}.savedState",
              ]
 end
