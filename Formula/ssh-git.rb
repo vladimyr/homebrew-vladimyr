@@ -5,14 +5,15 @@ class SshGit < Formula
   version "1"
 
   def install
-    bin.install "scripts/ssh-git"
+    lib.install "scripts/ssh-git.sh"
   end
 
   def caveats
     <<~CAVEATS
-      In order to complete the installation, please add the following to your shell profile:
+      In order to complete the installation,
+      please add the following to your shell profile:
 
-      GIT_SSH=ssh-git
+      GIT_SSH="$(brew --prefix)/lib/ssh-git.sh"
     CAVEATS
   end
 end
