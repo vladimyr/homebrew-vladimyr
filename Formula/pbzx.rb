@@ -7,7 +7,7 @@ class Pbzx < Formula
 
   depends_on "xz"
 
-  uses_from_macos "xar"
+  uses_from_macos "libxar"
 
   def install
     system ENV.cc, "-llzma", "-lxar", "pbzx.c", "-o", "pbzx"
