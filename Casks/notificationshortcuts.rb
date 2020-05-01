@@ -2,7 +2,7 @@ cask 'notificationshortcuts' do
   version '1.0.1'
   sha256 '181bd9e5b2e83349a030282564639d4e84ff52a12a510d1f82e8331b981f9b00'
 
-  # delpriore-appcasts.s3-us-west-1.amazonaws.com/NotificationShortcuts was verified as official when first introduced to the cask
+  # delpriore-appcasts.s3-us-west-1.amazonaws.com/NotificationShortcuts/ was verified as official when first introduced to the cask
   url "https://delpriore-appcasts.s3-us-west-1.amazonaws.com/NotificationShortcuts-#{version}.zip"
   appcast 'https://delpriore-appcasts.s3-us-west-1.amazonaws.com/NotificationShortcutsCast.xml'
   name 'NotificationShortcuts'
