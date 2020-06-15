@@ -9,7 +9,7 @@ class Vf1 < Formula
 
   def install
     system Formula["python@3.8"].opt_bin/"python3",
-           "setup.py", "install", "--prefix=#{prefix}"
+           *Language::Python.setup_install_args(prefix)
     if build.head?
       man1.install "vf1.1"
       man7.install "vf1-tutorial.7"
