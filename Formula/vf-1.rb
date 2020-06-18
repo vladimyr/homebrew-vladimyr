@@ -17,23 +17,10 @@ class Vf1 < Formula
   end
 
   test do
-    port = free_port
-    server = TCPServer.new(port)
-    server_pid = fork do
-      connection = server.accept
-      msg = connection.gets
-      assert_equal msg, "\r\n"
-      connection.puts "iHello world!\tfake\ttest.localhost\t0\r"
-      connection.puts ".\r"
-      connection.close
-      server.close
-    end
-
-    stdin, stdout, wait_thr = Open3.popen2("#{bin}/vf1", "127.0.0.1:#{port}")
-    assert_equal stdout.gets, "Hello world!\n"
+    stdin, stdout, wait_thr = Open3.popen2("#{bin}/vf1", "gopher://floodgap.com")
+    assert_equal stdout.gets, "Welcome to Floodgap Systems' official gopher server.\n"
     stdin.puts "quit"
-    Process.wait(wait_thr.pid)
   ensure
-    Process.kill("TERM", server_pid)
+    Process.kill("TERM", wait_thr.pid)
   end
 end
