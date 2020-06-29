@@ -14,14 +14,10 @@ class Wren < Formula
 
     rm_rf wren
     resource("wren").stage wren
-    (wren/"projects/make.mac").cd do
-      system "make", "verbose=1"
-    end
+    system "make", "-C", wren/"projects/make.mac", "verbose=1"
 
     mv wren/"src/include", wren/"include"
-    (buildpath/"projects/make.mac").cd do
-      system "make", "verbose=1"
-    end
+    system "make", "-C", "projects/make.mac", "verbose=1"
 
     bin.install "bin/wren_cli" => "wren"
     lib.install Dir[wren/"lib/*"]
@@ -34,5 +30,26 @@ class Wren < Formula
       System.print("Hello, world!")
     EOS
     assert_equal "Hello, world!\n", shell_output("#{bin}/wren hello.wren")
+
+    (testpath/"test.c").write <<~EOS
+      #include <assert.h>
+      #include <stdio.h>
+      #include "wren.h"
+
+      int main()
+      {
+        WrenConfiguration config;
+        wrenInitConfiguration(&config);
+        WrenVM* vm = wrenNewVM(&config);
+        WrenInterpretResult result = wrenInterpret(vm, "test", "var result = 1 + 2");
+        assert(result == WREN_RESULT_SUCCESS);
+        wrenEnsureSlots(vm, 0);
+        wrenGetVariable(vm, "test", "result", 0);
+        printf("1 + 2 = %d\\n", (int) wrenGetSlotDouble(vm, 0));
+        wrenFreeVM(vm);
+      }
+    EOS
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lwren", "-o", "test"
+    assert_equal "1 + 2 = 3", shell_output("./test").strip
   end
 end
