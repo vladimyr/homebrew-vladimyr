@@ -1,5 +1,5 @@
 class Wren < Formula
-  desc "The Wren Programming Language"
+  desc "Small, fast, class-based concurrent scripting language"
   homepage "https://wren.io"
   url "https://github.com/wren-lang/wren-cli/archive/0.3.0.tar.gz"
   sha256 "a498d2ccb9a723e7163b4530efbaec389cc13e6baaf935e16cbd052a739b7265"
