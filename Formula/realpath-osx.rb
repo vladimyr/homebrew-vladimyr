@@ -5,7 +5,7 @@ class RealpathOsx < Formula
   sha256 "ba0ff6ef5647c83b67f06bab4825759099995a09321af609e18812b030406de8"
   head "https://github.com/harto/realpath-osx.git"
 
-  conflicts_with "coreutils", :because => "both install a `realpath` binary"
+  conflicts_with "coreutils", because: "both install a `realpath` binary"
 
   def install
     system "make"

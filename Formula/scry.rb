@@ -17,31 +17,31 @@ class Scry < Formula
 
     begin
       request = {
-        :jsonrpc => "2.0",
-        :id      => 1,
-        :method  => "initialize",
-        :params  => {
-          :rootPath     => "path/to/project",
-          :capabilities => {},
-          :trace        => "off",
+        jsonrpc: "2.0",
+        id:      1,
+        method:  "initialize",
+        params:  {
+          rootPath:     "path/to/project",
+          capabilities: {},
+          trace:        "off",
         },
       }.to_json
 
       response = {
-        :jsonrpc => "2.0",
-        :id      => 1,
-        :result  => {
-          :capabilities => {
-            :textDocumentSync           => 1,
-            :documentFormattingProvider => true,
-            :definitionProvider         => true,
-            :documentSymbolProvider     => true,
-            :workspaceSymbolProvider    => true,
-            :completionProvider         => {
-              :resolveProvider   => true,
-              :triggerCharacters => [".", "\"", "/"],
+        jsonrpc: "2.0",
+        id:      1,
+        result:  {
+          capabilities: {
+            textDocumentSync:           1,
+            documentFormattingProvider: true,
+            definitionProvider:         true,
+            documentSymbolProvider:     true,
+            workspaceSymbolProvider:    true,
+            completionProvider:         {
+              resolveProvider:   true,
+              triggerCharacters: [".", "\"", "/"],
             },
-            :hoverProvider              => true,
+            hoverProvider:              true,
           },
         },
       }.to_json
