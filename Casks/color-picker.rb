@@ -10,4 +10,8 @@ cask "color-picker" do
   app "Color Picker.app"
 
   zap trash: "~/Library/Preferences/com.apple.ScriptEditor.id.Color-picker.plist"
+
+  caveats do
+    discontinued
+  end
 end
