@@ -7,4 +7,8 @@ cask "colorpicker-antetype" do
   homepage "https://web.archive.org/web/20140307033824/http://www.antetype.com/blog/2014/03/updated-antetype-color-picker-1-4-1/"
 
   colorpicker "AntetypeColorPicker.colorPicker"
+
+  caveats do
+    discontinued
+  end
 end
