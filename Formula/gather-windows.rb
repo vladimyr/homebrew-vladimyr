@@ -10,11 +10,11 @@ class GatherWindows < Formula
   depends_on "wmctrl"
 
   def install
-    bin.install "gather_windows.sh" => "gather-windows"
+    bin.install "gather_windows.sh" => "gather_windows"
   end
 
   test do
     assert_match "Usage: gather_windows.sh [option]",
-                 shell_output("#{bin}/gather-windows --help")
+                 shell_output("#{bin}/gather_windows --help")
   end
 end
