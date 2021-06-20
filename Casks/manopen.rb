@@ -15,4 +15,8 @@ cask "manopen" do
     "~/Library/Preferences/org.clindberg.ManOpen.plist",
     "~/Library/Saved Application State/org.clindberg.ManOpen.savedState",
   ]
+
+  caveats do
+    discontinued
+  end
 end
