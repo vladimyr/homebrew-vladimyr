@@ -7,4 +7,8 @@ cask "rcdefaultapp" do
   homepage "https://web.archive.org/web/20190908113330/http://www.rubicode.com/Software/RCDefaultApp/"
 
   prefpane "RCDefaultApp.prefPane"
+
+  caveats do
+    discontinued
+  end
 end
