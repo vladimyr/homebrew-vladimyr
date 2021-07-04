@@ -1,19 +1,28 @@
 class Scry < Formula
   desc "Code analysis server for Crystal programming language"
   homepage "https://github.com/crystal-lang-tools/scry/"
-  url "https://github.com/crystal-lang-tools/scry/archive/v0.8.1.tar.gz"
-  sha256 "31ce6d310c9485c5d3c87aa0e4fc07808b1ad122e73a485d26ed206f2c3d9c24"
+  url "https://github.com/crystal-lang-tools/scry/archive/v0.9.1.tar.gz"
+  sha256 "53bf972557f8b6a697d2aa727df465d6e7d04f6426fcd4559a4d77c90becad81"
+  license "MIT"
   head "https://github.com/crystal-lang-tools/scry.git"
+
+  livecheck do
+    url :stable
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
 
   depends_on "crystal" => :build
 
   def install
-    system "shards", "build", "--release"
+    system "shards", "build",
+           "--release", "--no-debug", "--verbose",
+           "--ignore-crystal-version"
     bin.install "bin/scry"
   end
 
   test do
     require "json"
+    require "open3"
 
     begin
       request = {
@@ -32,7 +41,7 @@ class Scry < Formula
         id:      1,
         result:  {
           capabilities: {
-            textDocumentSync:           1,
+            textDocumentSync:           "full",
             documentFormattingProvider: true,
             definitionProvider:         true,
             documentSymbolProvider:     true,
