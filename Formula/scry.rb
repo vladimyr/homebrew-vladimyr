@@ -12,6 +12,11 @@ class Scry < Formula
   end
 
   depends_on "crystal" => :build
+  depends_on "bdw-gc"
+  depends_on "libevent"
+  depends_on "pcre"
+
+  uses_from_macos "libiconv"
 
   def install
     system "shards", "build",
