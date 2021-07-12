@@ -6,11 +6,6 @@ class Scry < Formula
   license "MIT"
   head "https://github.com/crystal-lang-tools/scry.git"
 
-  livecheck do
-    url :stable
-    regex(/^v?(\d+(?:\.\d+)+)$/i)
-  end
-
   depends_on "crystal" => :build
   depends_on "bdw-gc"
   depends_on "libevent"
@@ -26,53 +21,16 @@ class Scry < Formula
   end
 
   test do
-    require "json"
-    require "open3"
-
-    begin
-      request = {
-        jsonrpc: "2.0",
-        id:      1,
-        method:  "initialize",
-        params:  {
-          rootPath:     "path/to/project",
-          capabilities: {},
-          trace:        "off",
-        },
-      }.to_json
-
-      response = {
-        jsonrpc: "2.0",
-        id:      1,
-        result:  {
-          capabilities: {
-            textDocumentSync:           "full",
-            documentFormattingProvider: true,
-            definitionProvider:         true,
-            documentSymbolProvider:     true,
-            workspaceSymbolProvider:    true,
-            completionProvider:         {
-              resolveProvider:   true,
-              triggerCharacters: [".", "\"", "/"],
-            },
-            hoverProvider:              true,
-          },
-        },
-      }.to_json
-
-      stdin, stdout, _, wait_thr = Open3.popen3(bin/"scry")
-      stdin.write <<~EOF
-        Content-Length: #{request.length}
-
-        #{request}
-      EOF
-
-      while (output = stdout.gets.split("Content-Length: ").first)
-        break if output.include? "\"id\":1"
-      end
-      assert_equal response, output
-    ensure
-      Process.kill "SIGKILL", wait_thr.pid
+    def rpc(json)
+      "Content-Length: #{json.size}\r\n" \
+        "\r\n" \
+        "#{json}"
     end
+
+    input = rpc '{ "jsonrpc": "2.0", "id": 1, "method": "initialize", "params": ' \
+                '{ "processId": 1, "rootPath": "/dev/null", "capabilities": {} , "trace": "off" }}'
+    input += rpc '{ "jsonrpc": "2.0", "method": "initialized", "params":  {} }'
+    input += rpc '{ "jsonrpc": "2.0", "id":  1, "method": "shutdown" }'
+    assert_match(/"capabilities"\s*:\s*{/, pipe_output(bin/"scry", input, 0))
   end
 end
