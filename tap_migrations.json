@@ -1,5 +1,6 @@
 {
   "dog": "homebrew/core",
   "lagrange": "skyjake/lagrange",
+  "scry": "homebrew/core",
   "svgbob": "homebrew/core"
 }
