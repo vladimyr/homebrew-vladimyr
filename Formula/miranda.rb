@@ -5,6 +5,14 @@ class Miranda < Formula
   version "2.066"
   sha256 "521c281e8c2fde87a2cd7c41d9677daa09514debb71435efc08ff3a7c20016eb"
 
+  livecheck do
+    url "https://www.cs.kent.ac.uk/people/staff/dat/miranda/src/?C=M&O=D"
+    regex(/href=.*?mira-(\d)(\d+)-src\.t/i)
+    strategy :page_match do |page, regex|
+      page.scan(regex).map { |match| match.join(".") }
+    end
+  end
+
   depends_on "byacc" => :build
 
   def install
